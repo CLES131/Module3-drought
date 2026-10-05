@@ -8,7 +8,11 @@ format: pdf
 We are going to replicate some of the regressions and figures from Smith et al. 2024. This PNAS paper was published with a link to Dryad, a popular data repository in ecology community run on FAIR principles. FAIR stands for Findable, Accessible, Interoperable, and Reusable. 
 
 ### Q1
-The full contents of the Dryad repository are in `data/`. From either the README or .R file, can  you tell what types of information are in each .csv? How would you assess the repository in light of the FAIR criteria?
+The full contents of the [Dryad repository](https://datadryad.org/dataset/doi:10.5061/dryad.3j9kd51rb) are in `data/`. From the README file, can  you tell what types of information are in each .csv? How would you assess this data repository in light of the FAIR criteria?
+
+
+### Q2
+A single R script has been provided for this paper. Read through this file (running it is optional). Evaluate the strengths and weaknesses of this code repository in light of your understanding of research compendia. 
 
 
 ## Wrangling data
@@ -71,7 +75,7 @@ data_all <- read_csv("data/data.hab.csv") |>
 
 ## Univariate drivers of drought response (Fig. 3)
 
-### Q2
+### Q3
 Recall previous notes on running simple linear regressions using `lm()`. Replicate all of the simple linear regressions in Fig. 3. 
  
 ```{r}
@@ -80,7 +84,7 @@ Recall previous notes on running simple linear regressions using `lm()`. Replica
 
 Do your outputs match those of the published figure?
 
-### Q3 (optional)
+### Q4
 From the published R code, it appears that Fig. 3 was made in separate pieces. Recreate the figure to the best of your ability with a single code chunk, using `facet_wrap()`. 
  
 ```{r}
@@ -91,16 +95,26 @@ From the published R code, it appears that Fig. 3 was made in separate pieces. R
 See Prof. Guo's slides on the inverse texture hypothesis. Under this hypothesis, there should be a significant interaction term between which two variables?
 
 
-### Q4
-Conduct a multiple regression to test the inverse texture hypothesis. Is there statistical support?
+### Q5
+Conduct a multiple regression to test the inverse texture hypothesis. Is there statistical support for this hypothesis?
 
 ```{r}
 
 ```
 
+### Q6
+Compare your result above to the supplemental Table S7. Try using 'lme4' and lmer() to replicate the results of Table S7. Were you successful? If not, what is the limiting factor?
+
+
+```{r}
+library(lme4)
+
+```
+
+
 ## Importance of drought severity (Fig. 4)
 
-### Q5
+### Q7
 Replicate the simple linear regression in Fig. 4. 
 
 ```{r}
@@ -109,10 +123,10 @@ Replicate the simple linear regression in Fig. 4.
 
 How much variation in drought response is explained by drought severity? How does this compare to the coefficient of determination (R^2) of the predictors in Fig. 3?
 
-### Q6
+### Q8
 It can be unsatisfying to run numerous simple linear regressions. We also increase the risk of Type I error, meaning that due to the large number of hypothesis tests, we are more likely to see a false positive even if that relationship isn't truly significant. 
 
-In the supplement Table S8, Smith et al. 2024 show the output of a multiple regression. Replicate this below. 
+In the supplemental Table S8, Smith et al. 2024 show the output of a multiple regression. Replicate this below to the best of your ability. 
 
 ```{r}
 
@@ -123,7 +137,7 @@ How much more variation in drought response is predicted by this ensemble of pre
 Which variable does the heavy lifting, and how does this compare to the results of the simple linear regression?
 
 
-### Bonus 1
+### Q8
 One common consideration in multiple regression is multicollinearity of the predictor variable. Look up the documentation for `pairs()` and use it on all of the predictor columns in `data_all`. Which predictors are strongly correlated? What does this suggest about their usage in a multiple regression model?
 
 ```{r}
@@ -131,7 +145,7 @@ One common consideration in multiple regression is multicollinearity of the pred
 ```
 
 
-### Bonus 2
+### Q9
 When there are multiple possible predictor variables to choose from, we can use model selection methods to identify the 'best' overall model. 'Best' cannot be only based on high R^2 values, as that would promote overfitting such that conclusions are unlikely to be applicable to a new context. Therefore, 'best' is often determined by the tradeoff between high model fit and low model complexity. Often, the target statistic to minimize is an information criterion, which consists of two components:
 
 $IC = likelihood - penalty$ 

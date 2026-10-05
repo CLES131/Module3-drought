@@ -1,2 +1,8 @@
 notes/
 .Rproj.user
+
+*.html
+*.pdf
+module3_files/
+notes/
+module3_key.qmd
